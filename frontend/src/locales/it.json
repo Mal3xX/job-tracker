@@ -1,0 +1,297 @@
+{
+  "nav": {
+    "appName": "JobTracker",
+    "appTagline": "Gestisci le tue candidature",
+    "dashboard": "Dashboard",
+    "companies": "Aziende",
+    "applications": "Candidature",
+    "adminUsers": "Utenti"
+  },
+  "common": {
+    "loading": "Caricamento...",
+    "saving": "Salvataggio in corso...",
+    "cancel": "Annulla",
+    "delete": "Elimina",
+    "edit": "Modifica",
+    "view": "Dettagli",
+    "create": "Nuovo",
+    "back": "Indietro",
+    "actions": "Azioni",
+    "resetFilters": "Cancella filtri",
+    "previous": "Precedente",
+    "next": "Successivo",
+    "total": "Totale",
+    "saveChanges": "Salva Modifiche",
+    "confirmDelete": "Eliminare \"{name}\"?",
+    "confirm": "Conferma",
+    "confirmDeleteTitle": "Conferma eliminazione",
+    "unauthorized": "Non hai i permessi per questa azione.",
+    "noData": "Nessun dato disponibile"
+  },
+  "errors": {
+    "generic": "Si è verificato un errore. Riprova più tardi.",
+    "timeout": "La richiesta ha impiegato troppo tempo. Riprova.",
+    "auth": {
+      "register": "Registrazione fallita. Verifica i dati inseriti."
+    },
+    "dashboard": {
+      "fetch": "Impossibile caricare le statistiche della dashboard."
+    }
+  },
+  "auth": {
+    "login": "Accedi",
+    "register": "Registrati",
+    "loginTitle": "Accedi al tuo account",
+    "registerTitle": "Crea un nuovo account",
+    "email": "Email",
+    "password": "Password",
+    "passwordConfirm": "Conferma Password",
+    "name": "Nome",
+    "lastName": "Cognome",
+    "noAccount": "Non hai un account?",
+    "hasAccount": "Hai già un account?",
+    "logout": "Esci",
+    "loginError": "Email o password errati",
+    "settings": "Impostazioni",
+    "profile": {
+        "title": "Impostazioni Profilo",
+        "avatar": "Immagine Profilo",
+        "chooseImage": "Scegli immagine",
+        "removeImage": "Rimuovi immagine",
+        "changeEmail": "Cambia Email",
+        "changePassword": "Cambia Password",
+        "newPassword": "Nuova Password",
+        "confirmPassword": "Conferma Nuova Password",
+        "leaveEmpty": "Lascia vuoto per non modificare la password",
+        "updated": "Profilo aggiornato con successo",
+        "avatarUpdated": "Immagine profilo aggiornata",
+        "avatarRemoved": "Immagine profilo rimossa"
+    },
+    "emailPlaceholder": "la tua{'@'}email.com",
+    "passwordPlaceholder": "••••••••"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "loading": "Caricamento statistiche...",
+    "cards": {
+      "totalApplications": "Totale Candidature",
+      "thisMonth": "Questo Mese",
+      "lastMonth": "Mese Precedente",
+      "variation": "Variazione"
+    },
+    "charts": {
+      "applicationTrend": "Andamento Candidature",
+      "statusDistribution": "Distribuzione Stati",
+    "applications": "Candidature"
+    },
+    "recentApplications": {
+      "title": "Ultime Candidature",
+      "empty": "Nessuna candidatura recente"
+    }
+  },
+  "companies": {
+    "title": "Aziende",
+    "new": "Nuova Azienda",
+    "edit": "Modifica Azienda",
+    "notFound": "Azienda non trovata",
+    "loading": "Caricamento aziende...",
+    "loadingItem": "Caricamento azienda...",
+    "searchPlaceholder": "Cerca aziende per nome o settore...",
+    "autocomplete": {
+      "noResults": "Nessuna azienda trovata"
+    },
+    "columns": {
+      "name": "Nome",
+      "sector": "Settore",
+      "size": "Dimensione",
+      "createdAt": "Data Creazione"
+    },
+    "fields": {
+      "name": "Nome *",
+      "namePlaceholder": "Nome azienda",
+      "sector": "Settore",
+      "sectorPlaceholder": "es. Tecnologia, Finanza...",
+      "size": "Dimensione",
+      "sizePlaceholder": "Seleziona dimensione",
+      "website": "Sito Web",
+      "websitePlaceholder": "https://...",
+      "linkedin": "LinkedIn",
+      "linkedinPlaceholder": "https://linkedin.com/company/...",
+      "description": "Descrizione",
+      "descriptionPlaceholder": "Descrizione dell'azienda...",
+      "notes": "Note",
+      "notesPlaceholder": "Note personali...",
+      "noDescription": "Nessuna descrizione",
+      "noNotes": "Nessuna nota",
+      "createdAt": "Data Creazione"
+    },
+    "sizes": {
+      "small": "Piccola",
+      "medium": "Media",
+      "large": "Grande"
+    },
+    "sections": {
+      "general": "Informazioni Generali",
+      "links": "Link e Contatti",
+      "notes": "Note"
+    },
+    "contacts": {
+      "title": "Contatti",
+      "add": "Aggiungi Contatto",
+      "loading": "Caricamento contatti...",
+      "empty": "Nessun contatto registrato",
+      "new": "Nuovo Contatto",
+      "edit": "Modifica Contatto"
+    },
+    "applicationHistory": {
+      "title": "Storico Candidature",
+      "empty": "Nessuna candidatura per questa azienda"
+    },
+    "pending": {
+      "title": "Hai {count} aziende da creare",
+      "createButton": "Crea Azienda",
+      "applicationsCount": "{count} candidature"
+    }
+  },
+  "contacts": {
+    "name": "Nome",
+    "role": "Ruolo",
+    "email": "Email",
+    "phone": "Telefono",
+    "linkedin": "LinkedIn",
+    "notes": "Note"
+  },
+  "applications": {
+    "title": "Candidature",
+    "new": "Nuova Candidatura",
+    "edit": "Modifica Candidatura",
+    "notFound": "Candidatura non trovata",
+    "loading": "Caricamento candidature...",
+    "loadingItem": "Caricamento candidatura...",
+    "searchPlaceholder": "Cerca per titolo, azienda o località...",
+    "columns": {
+      "title": "Titolo",
+      "company": "Azienda",
+      "status": "Stato",
+      "workMode": "Modalità",
+      "location": "Località",
+      "date": "Data"
+    },
+    "fields": {
+      "title": "Titolo *",
+      "titlePlaceholder": "Titolo della posizione",
+      "company": "Azienda",
+      "companyPlaceholder": "Nessuna azienda",
+      "status": "Stato",
+      "statusPlaceholder": "Seleziona stato",
+      "workMode": "Modalità Lavoro",
+      "workModePlaceholder": "Seleziona modalità",
+      "location": "Località",
+      "locationPlaceholder": "es. Milano, Roma...",
+      "platform": "Piattaforma",
+      "platformPlaceholder": "es. LinkedIn, Indeed...",
+      "link": "Link Annuncio",
+      "linkPlaceholder": "https://...",
+      "salaryMin": "RAL Min",
+      "salaryMinPlaceholder": "es. 30000",
+      "salaryMax": "RAL Max",
+      "salaryMaxPlaceholder": "es. 50000",
+      "interviewDate": "Data Colloquio",
+      "description": "Descrizione",
+      "descriptionPlaceholder": "Descrizione della posizione...",
+      "notes": "Note",
+      "notesPlaceholder": "Note personali...",
+      "noDescription": "Nessuna descrizione",
+      "noNotes": "Nessuna nota",
+      "createdAt": "Data",
+      "noCompany": "-",
+      "pendingCompany": "(in sospeso)"
+    },
+    "statusLabels": {
+      "pending": "In attesa",
+      "negative": "Negativo",
+      "positive": "Positivo",
+      "interview": "Colloquio",
+      "offer": "Offerta",
+      "no_response": "Nessuna Risposta"
+    },
+    "workModeLabels": {
+      "remote": "Remoto",
+      "office": "Ufficio",
+      "hybrid": "Ibrido"
+    },
+    "filterOptions": {
+      "allStatuses": "Tutti gli stati",
+      "allWorkModes": "Tutte le modalità",
+      "allCompanies": "Tutte le aziende",
+      "statusPlaceholder": "Filtra per stato",
+      "companyPlaceholder": "Filtra per azienda",
+      "workModePlaceholder": "Filtra per modalità",
+      "dateFrom": "Data Da",
+      "dateTo": "Data A"
+    },
+    "sections": {
+      "general": "Informazioni Generali",
+      "details": "Dettagli Annuncio",
+      "notes": "Note"
+    }
+  },
+  "date": {
+    "today": "Oggi",
+    "yesterday": "Ieri",
+    "daysAgo": "{days} giorni fa"
+  },
+  "form": {
+    "required": "{field} è obbligatorio",
+    "invalidEmail": "Email non valida",
+    "passwordMismatch": "Le password non coincidono",
+    "saveError": "Errore durante il salvataggio"
+  },
+  "admin": {
+    "title": "Utenti",
+    "loading": "Caricamento...",
+    "searchPlaceholder": "Cerca per nome o email...",
+    "active": "attiva",
+    "active_plural": "attive",
+    "columns": {
+      "name": "Nome",
+      "email": "Email",
+      "role": "Ruolo",
+      "sessions": "Sessioni",
+      "lastLogin": "Ultimo accesso",
+      "createdAt": "Registrato il"
+    },
+    "roles": {
+      "admin": "Admin",
+      "user": "Utente"
+    },
+    "detail": {
+      "title": "Dettaglio utente",
+      "userInfo": "Informazioni utente",
+      "changeRole": "Cambia ruolo",
+      "save": "Salva ruolo",
+      "roleUpdated": "Ruolo aggiornato",
+      "sessions": "Sessioni attive",
+      "noSessions": "Nessuna sessione attiva",
+      "ipAddress": "IP",
+      "userAgent": "Browser",
+      "lastActivity": "Ultima attività",
+      "loginHistory": "Storico accessi",
+      "noLoginHistory": "Nessun accesso registrato",
+      "loggedInAt": "Data accesso",
+      "cannotChangeRole": "Non hai i permessi per modificare il ruolo di questo utente"
+    }
+  },
+  "notifications": {
+    "applicationCreated": "Candidatura creata con successo",
+    "applicationUpdated": "Candidatura aggiornata con successo",
+    "companyCreated": "Azienda creata con successo",
+    "companyUpdated": "Azienda aggiornata con successo",
+    "contactCreated": "Contatto creato con successo",
+    "contactUpdated": "Contatto aggiornato con successo",
+    "applicationDeleted": "Candidatura eliminata con successo",
+    "companyDeleted": "Azienda eliminata con successo",
+    "contactDeleted": "Contatto eliminato con successo",
+    "loggedOut": "Disconnessione effettuata"
+  }
+}

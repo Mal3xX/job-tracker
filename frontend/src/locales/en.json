@@ -1,0 +1,297 @@
+{
+  "nav": {
+    "appName": "JobTracker",
+    "appTagline": "Manage your job applications",
+    "dashboard": "Dashboard",
+    "companies": "Companies",
+    "applications": "Applications",
+    "adminUsers": "Users"
+  },
+  "common": {
+    "loading": "Loading...",
+    "saving": "Saving...",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "Details",
+    "create": "New",
+    "back": "Back",
+    "actions": "Actions",
+    "resetFilters": "Clear filters",
+    "previous": "Previous",
+    "next": "Next",
+    "total": "Total",
+    "saveChanges": "Save Changes",
+    "confirmDelete": "Delete \"{name}\"?",
+    "confirm": "Confirm",
+    "confirmDeleteTitle": "Confirm deletion",
+    "unauthorized": "You don't have permission for this action.",
+    "noData": "No data available"
+  },
+  "errors": {
+    "generic": "An error occurred. Please try again later.",
+    "timeout": "The request took too long. Please try again.",
+    "auth": {
+      "register": "Registration failed. Please check your input."
+    },
+    "dashboard": {
+      "fetch": "Unable to load dashboard statistics."
+    }
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "loginTitle": "Sign in to your account",
+    "registerTitle": "Create a new account",
+    "email": "Email",
+    "password": "Password",
+    "passwordConfirm": "Confirm Password",
+    "name": "Name",
+    "lastName": "Last Name",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "logout": "Logout",
+    "loginError": "Invalid email or password",
+    "settings": "Settings",
+    "profile": {
+        "title": "Profile Settings",
+        "avatar": "Profile Image",
+        "chooseImage": "Choose image",
+        "removeImage": "Remove image",
+        "changeEmail": "Change Email",
+        "changePassword": "Change Password",
+        "newPassword": "New Password",
+        "confirmPassword": "Confirm New Password",
+        "leaveEmpty": "Leave empty to keep current password",
+        "updated": "Profile updated successfully",
+        "avatarUpdated": "Profile image updated",
+        "avatarRemoved": "Profile image removed"
+    },
+    "emailPlaceholder": "your{'@'}email.com",
+    "passwordPlaceholder": "••••••••"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "loading": "Loading statistics...",
+    "cards": {
+      "totalApplications": "Total Applications",
+      "thisMonth": "This Month",
+      "lastMonth": "Last Month",
+      "variation": "Variation"
+    },
+    "charts": {
+      "applicationTrend": "Application Trend",
+      "statusDistribution": "Status Distribution",
+    "applications": "Applications"
+    },
+    "recentApplications": {
+      "title": "Recent Applications",
+      "empty": "No recent applications"
+    }
+  },
+  "companies": {
+    "title": "Companies",
+    "new": "New Company",
+    "edit": "Edit Company",
+    "notFound": "Company not found",
+    "loading": "Loading companies...",
+    "loadingItem": "Loading company...",
+    "searchPlaceholder": "Search companies by name or sector...",
+    "autocomplete": {
+      "noResults": "No companies found"
+    },
+    "columns": {
+      "name": "Name",
+      "sector": "Sector",
+      "size": "Size",
+      "createdAt": "Created At"
+    },
+    "fields": {
+      "name": "Name *",
+      "namePlaceholder": "Company name",
+      "sector": "Sector",
+      "sectorPlaceholder": "e.g. Technology, Finance...",
+      "size": "Size",
+      "sizePlaceholder": "Select size",
+      "website": "Website",
+      "websitePlaceholder": "https://...",
+      "linkedin": "LinkedIn",
+      "linkedinPlaceholder": "https://linkedin.com/company/...",
+      "description": "Description",
+      "descriptionPlaceholder": "Company description...",
+      "notes": "Notes",
+      "notesPlaceholder": "Personal notes...",
+      "noDescription": "No description",
+      "noNotes": "No notes",
+      "createdAt": "Created At"
+    },
+    "sizes": {
+      "small": "Small",
+      "medium": "Medium",
+      "large": "Large"
+    },
+    "sections": {
+      "general": "General Information",
+      "links": "Links & Contacts",
+      "notes": "Notes"
+    },
+    "contacts": {
+      "title": "Contacts",
+      "add": "Add Contact",
+      "loading": "Loading contacts...",
+      "empty": "No contacts registered",
+      "new": "New Contact",
+      "edit": "Edit Contact"
+    },
+    "applicationHistory": {
+      "title": "Application History",
+      "empty": "No applications for this company"
+    },
+    "pending": {
+      "title": "You have {count} companies to create",
+      "createButton": "Create Company",
+      "applicationsCount": "{count} applications"
+    }
+  },
+  "contacts": {
+    "name": "Name",
+    "role": "Role",
+    "email": "Email",
+    "phone": "Phone",
+    "linkedin": "LinkedIn",
+    "notes": "Notes"
+  },
+  "applications": {
+    "title": "Applications",
+    "new": "New Application",
+    "edit": "Edit Application",
+    "notFound": "Application not found",
+    "loading": "Loading applications...",
+    "loadingItem": "Loading application...",
+    "searchPlaceholder": "Search by title, company or location...",
+    "columns": {
+      "title": "Title",
+      "company": "Company",
+      "status": "Status",
+      "workMode": "Work Mode",
+      "location": "Location",
+      "date": "Date"
+    },
+    "fields": {
+      "title": "Title *",
+      "titlePlaceholder": "Job title",
+      "company": "Company",
+      "companyPlaceholder": "No company",
+      "status": "Status",
+      "statusPlaceholder": "Select status",
+      "workMode": "Work Mode",
+      "workModePlaceholder": "Select work mode",
+      "location": "Location",
+      "locationPlaceholder": "e.g. Milan, Rome...",
+      "platform": "Platform",
+      "platformPlaceholder": "e.g. LinkedIn, Indeed...",
+      "link": "Job Link",
+      "linkPlaceholder": "https://...",
+      "salaryMin": "Salary Min",
+      "salaryMinPlaceholder": "e.g. 30000",
+      "salaryMax": "Salary Max",
+      "salaryMaxPlaceholder": "e.g. 50000",
+      "interviewDate": "Interview Date",
+      "description": "Description",
+      "descriptionPlaceholder": "Position description...",
+      "notes": "Notes",
+      "notesPlaceholder": "Personal notes...",
+      "noDescription": "No description",
+      "noNotes": "No notes",
+      "createdAt": "Date",
+      "noCompany": "-",
+      "pendingCompany": "(pending)"
+    },
+    "statusLabels": {
+      "pending": "Pending",
+      "negative": "Negative",
+      "positive": "Positive",
+      "interview": "Interview",
+      "offer": "Offer",
+      "no_response": "No response"
+    },
+    "workModeLabels": {
+      "remote": "Remote",
+      "office": "Office",
+      "hybrid": "Hybrid"
+    },
+    "filterOptions": {
+      "allStatuses": "All statuses",
+      "allWorkModes": "All work modes",
+      "allCompanies": "All companies",
+      "statusPlaceholder": "Filter by status",
+      "companyPlaceholder": "Filter by company",
+      "workModePlaceholder": "Filter by work mode",
+      "dateFrom": "Date From",
+      "dateTo": "Date To"
+    },
+    "sections": {
+      "general": "General Information",
+      "details": "Job Details",
+      "notes": "Notes"
+    }
+  },
+  "date": {
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "daysAgo": "{days} days ago"
+  },
+  "form": {
+    "required": "{field} is required",
+    "invalidEmail": "Invalid email address",
+    "passwordMismatch": "Passwords do not match",
+    "saveError": "Error while saving"
+  },
+  "admin": {
+    "title": "Users",
+    "loading": "Loading...",
+    "searchPlaceholder": "Search by name or email...",
+    "active": "active",
+    "active_plural": "active",
+    "columns": {
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "sessions": "Sessions",
+      "lastLogin": "Last login",
+      "createdAt": "Registered on"
+    },
+    "roles": {
+      "admin": "Admin",
+      "user": "User"
+    },
+    "detail": {
+      "title": "User detail",
+      "userInfo": "User information",
+      "changeRole": "Change role",
+      "save": "Save role",
+      "roleUpdated": "Role updated",
+      "sessions": "Active sessions",
+      "noSessions": "No active sessions",
+      "ipAddress": "IP",
+      "userAgent": "Browser",
+      "lastActivity": "Last activity",
+      "loginHistory": "Login history",
+      "noLoginHistory": "No login history",
+      "loggedInAt": "Login date",
+      "cannotChangeRole": "You don't have permission to change this user's role"
+    }
+  },
+  "notifications": {
+    "applicationCreated": "Application created successfully",
+    "applicationUpdated": "Application updated successfully",
+    "companyCreated": "Company created successfully",
+    "companyUpdated": "Company updated successfully",
+    "contactCreated": "Contact created successfully",
+    "contactUpdated": "Contact updated successfully",
+    "applicationDeleted": "Application deleted successfully",
+    "companyDeleted": "Company deleted successfully",
+    "contactDeleted": "Contact deleted successfully",
+    "loggedOut": "Logged out successfully"
+  }
+}

@@ -34,7 +34,7 @@ class CompanyController extends Controller
     public function index(Request $request): JsonResponse
     {
         $this->authorize('viewAny', Company::class);
-        $companies = $this->companyService->getAll($request->integer('per_page', 15));
+        $companies = $this->companyService->getAll($request->user(), $request->integer('per_page', 15));
         return response()->json([
             'data' => CompanyIndexResource::collection($companies),
             'meta' => [
@@ -48,24 +48,27 @@ class CompanyController extends Controller
 
     /**
      * Restituisce ID e nome di tutte le aziende (per autocomplete).
+     * 
+     * @param Request $request
      */
-    public function names(): JsonResponse
+    public function names(Request $request): JsonResponse
     {
         $this->authorize('viewAny', Company::class);
         return response()->json([
-            'data' => $this->companyService->getNames()
+            'data' => $this->companyService->getNames($request->user())
         ]);
     }
 
     /**
      * Restituisce una singola azienda con tutti i dettagli.
      *
+     * @param Request $request
      * @param int $id
      * @return JsonResponse
      */
-    public function show(int $id): JsonResponse
+    public function show(Request $request, int $id): JsonResponse
     {
-        $company = $this->companyService->getById($id);
+        $company = $this->companyService->getById($id, $request->user());
         $this->authorize('view', $company);
         return response()->json([
             'data' => new CompanyShowResource($company),
@@ -97,7 +100,7 @@ class CompanyController extends Controller
      */
     public function update(UpdateCompanyRequest $request, int $id): JsonResponse
     {
-        $company = $this->companyService->getById($id);
+        $company = $this->companyService->getById($id, $request->user());
         $this->authorize('update', $company);
         $company = $this->companyService->update($company, $request->validated());
         return response()->json([
@@ -109,12 +112,13 @@ class CompanyController extends Controller
     /**
      * Elimina un'azienda.
      *
+     * @param Request $request
      * @param int $id
      * @return JsonResponse
      */
-    public function destroy(int $id): Response
+    public function destroy(Request $request, int $id): Response
     {
-        $company = $this->companyService->getById($id);
+        $company = $this->companyService->getById($id, $request->user());
         $this->authorize('delete', $company);
         $this->companyService->delete($company);
         return response()->noContent();

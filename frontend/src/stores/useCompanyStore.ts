@@ -74,6 +74,7 @@ export const useCompanyStore = defineStore("company", () => {
    */
   async function fetchCompany(id: number) {
     loading.value = true;
+    currentCompany.value = null;
     try {
       const res = await companiesApi.getCompany(id);
       currentCompany.value = toCamelCase<Company>(res.data);
@@ -136,6 +137,18 @@ export const useCompanyStore = defineStore("company", () => {
     }
   }
 
+  /**
+   * Azzera lo stato dello store (logout / cambio utente).
+   */
+  function reset() {
+    companies.value = [];
+    currentCompany.value = null;
+    companyNames.value = [];
+    namesLoaded.value = false;
+    pagination.value = null;
+    loading.value = false;
+  }
+
   return {
     companies,
     currentCompany,
@@ -151,5 +164,6 @@ export const useCompanyStore = defineStore("company", () => {
     updateCompany,
     deleteCompany,
     fetchCompanyNames,
+    reset,
   };
 });

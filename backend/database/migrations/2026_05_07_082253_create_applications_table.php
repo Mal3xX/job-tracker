@@ -31,6 +31,9 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
+            $table->index('created_at');
+            $table->index(['user_id', 'created_at']);
+            $table->index(['company_id', 'user_id', 'company_name']);
         });
     }
 

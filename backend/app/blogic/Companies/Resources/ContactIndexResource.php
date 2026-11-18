@@ -26,7 +26,10 @@ class ContactIndexResource extends JsonResource
             'linkedin' => $this->linkedin,
             'company_id' => $this->company_id,
             'creator_id' => $this->creator_id,
-            'notes' => $this->notes,
+            'notes' => $this->when(
+                $request->user()?->user?->id === $this->creator_id,
+                $this->notes,
+            ),
             'is_principal' => $this->is_principal,
         ];
     }

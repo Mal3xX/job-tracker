@@ -78,7 +78,7 @@ export async function apiCall<T>(
     const response = await fetch(`${baseUrl}${endpoint}`, config);
     clearTimeout(timeoutId);
     if (response.status === 401) {
-      useAuthStore().clearAuth();
+      await useAuthStore().clearAuth();
       router.push("/login");
       throw new Error("Unauthorized");
     }
@@ -131,15 +131,23 @@ export function apiPost<T>(
 /**
  * Shorthand per richieste PUT.
  */
-export function apiPut<T>(endpoint: string, data: unknown, isFormData = false): Promise<T> {
-    return apiCall<T>(endpoint, { method: 'PUT', data, isFormData })
+export function apiPut<T>(
+  endpoint: string,
+  data: unknown,
+  isFormData = false,
+): Promise<T> {
+  return apiCall<T>(endpoint, { method: "PUT", data, isFormData });
 }
 
 /**
  * Shorthand per richieste PATCH.
  */
-export function apiPatch<T>(endpoint: string, data: unknown, isFormData = false): Promise<T> {
-    return apiCall<T>(endpoint, { method: 'PATCH', data, isFormData })
+export function apiPatch<T>(
+  endpoint: string,
+  data: unknown,
+  isFormData = false,
+): Promise<T> {
+  return apiCall<T>(endpoint, { method: "PATCH", data, isFormData });
 }
 
 /**

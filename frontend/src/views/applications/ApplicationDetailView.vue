@@ -287,7 +287,10 @@ function onViewCompany() {
               }}
             </p>
           </div>
-          <div class="md:col-span-2">
+          <div
+            v-if="applicationStore.currentApplication.notes !== undefined"
+            class="md:col-span-2"
+          >
             <h3 class="text-sm font-medium text-gray-500">
               {{ t("applications.fields.notes") }}
             </h3>

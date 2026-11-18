@@ -9,8 +9,8 @@ use App\blogic\Companies\Models\Contact;
 
 /**
  * Policy per autorizzare azioni sui contatti.
- * Tutti gli utenti autenticati possono visualizzare e creare contatti;
- * solo gli admin possono aggiornarli ed eliminarli.
+ * Gli utenti possono visualizzare solo i propri contatti;
+ * gli admin bypassano i controlli tramite before().
  */
 class ContactPolicy
 {
@@ -31,11 +31,12 @@ class ContactPolicy
     }
 
     /**
-     * Determina se l'account può visualizzare il contatto specificato.
+     * Determina se il contatto specificato può essere visualizzato dall'account.
+     * Solo il creatore può visualizzarlo; gli admin sono gestiti da before().
      */
     public function view(Account $account, Contact $contact): bool
     {
-        return true;
+        return $account->user?->id === $contact->creator_id;
     }
 
     /**

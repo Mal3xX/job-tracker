@@ -17,7 +17,6 @@ const { t } = useI18n();
 const { showSuccess, showError } = useToast();
 const companyStore = useCompanyStore();
 const authStore = useAuthStore();
-const isAdmin = computed(() => authStore.isAdmin);
 
 interface Props {
   open: boolean;
@@ -29,6 +28,13 @@ const props = withDefaults(defineProps<Props>(), {
   companyId: null,
   prefillName: "",
 });
+
+const canEdit = computed(
+  () =>
+    !props.companyId ||
+    authStore.isAdmin ||
+    companyStore.currentCompany?.creatorId === authStore.user?.id,
+);
 
 const emit = defineEmits<{
   close: [];
@@ -49,7 +55,7 @@ watch(
   () => props.open,
   (val) => {
     if (!val) return;
-    if (props.companyId && !isAdmin.value) {
+    if (!canEdit.value) {
       onClose();
       return;
     }
@@ -93,7 +99,7 @@ function onClose() {
  * Riceve i dati validati dal form, chiama l'API e notifica il parent
  */
 async function onFormSubmit(data: CompanyCreate) {
-  if (props.companyId && !isAdmin.value) {
+  if (!canEdit.value) {
     showError(t("common.unauthorized"));
     onClose();
     return;
@@ -123,7 +129,7 @@ async function onFormSubmit(data: CompanyCreate) {
     <template v-else>
       <CompanyForm
         :initial-data="initialData"
-        :disabled="!!props.companyId && !isAdmin"
+        :disabled="!canEdit"
         @submit="onFormSubmit"
         @cancel="onClose"
       />

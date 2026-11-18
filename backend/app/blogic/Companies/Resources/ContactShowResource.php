@@ -27,7 +27,10 @@ class ContactShowResource extends JsonResource
             'linkedin' => $this->linkedin,
             'is_principal' => $this->is_principal,
             'creator_id' => $this->creator_id,
-            'notes' => $this->notes,
+            'notes' => $this->when(
+                $request->user()?->user?->id === $this->creator_id,
+                $this->notes,
+            ),
             'company' => $this->whenLoaded('company', fn() => [
                 'id' => $this->company->id,
                 'name' => $this->company->name,

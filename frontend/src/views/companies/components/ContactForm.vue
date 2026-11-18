@@ -72,7 +72,7 @@ function onSubmit() {
     return;
   }
   const data: ContactCreate = {
-    companyId: 0, // placeholder, viene sovrascritto dal wrapper
+    companyId: 0, 
     name: form.value.name.trim(),
     email: form.value.email || undefined,
     phone: form.value.phone || undefined,

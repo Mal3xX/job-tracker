@@ -10,7 +10,7 @@ export interface Contact {
     phone: string | null;
     role: string | null;
     linkedin: string | null;
-    notes: string | null;
+    notes?: string | null;
     isPrincipal?: boolean;
     creatorId?: number;
     createdAt: string;

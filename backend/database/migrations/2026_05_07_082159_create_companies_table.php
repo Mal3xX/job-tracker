@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('creator_id')->constrained('users')->cascadeOnDelete();
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('sector')->nullable();
@@ -25,6 +26,9 @@ return new class extends Migration
             $table->string('logo_path')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
+            $table->index('created_at');
+            $table->index(['creator_id', 'created_at']);
+            $table->index(['creator_id', 'name']);
         });
     }
 

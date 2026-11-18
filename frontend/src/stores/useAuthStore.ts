@@ -85,14 +85,34 @@ export const useAuthStore = defineStore("auth", () => {
   }
 
   /**
+   * Resetta le cache degli store dati dopo logout o 401.
+   * Import dinamici per evitare cicli statici con network/api.
+   */
+  async function resetAllStores() {
+    const { useCompanyStore } = await import("@/stores/useCompanyStore");
+    const { useContactStore } = await import("@/stores/useContactStore");
+    const { useApplicationStore } =
+      await import("@/stores/useApplicationStore");
+    const { useDashboardStore } = await import("@/stores/useDashboardStore");
+    const { useAdminStore } = await import("@/stores/useAdminStore");
+
+    useCompanyStore().reset();
+    useContactStore().reset();
+    useApplicationStore().reset();
+    useDashboardStore().reset();
+    useAdminStore().reset();
+  }
+
+  /**
    * Resetta lo stato locale dell'utente senza chiamare il backend.
    * Usato nell'handler 401 per evitare il loop infinito
    * (il backend ha già risposto "non autenticato", non serve chiamare logout).
    */
-  function clearAuth() {
+  async function clearAuth() {
     user.value = null;
+    loading.value = false;
+    await resetAllStores();
   }
-
   /**
    * Aggiorna il profilo dell'utente autenticato.
    * Supporta cambio email, password e upload avatar tramite FormData.
@@ -121,9 +141,9 @@ export const useAuthStore = defineStore("auth", () => {
   /**
    * Effettua il logout: pulisce utente ed errori
    */
-  function logout() {
+  async function logout() {
     authApi.logout().catch(() => {});
-    user.value = null;
+    await clearAuth();
   }
 
   return {

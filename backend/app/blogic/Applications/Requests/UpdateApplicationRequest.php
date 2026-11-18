@@ -8,6 +8,7 @@ use App\blogic\_Shared\Enums\ApplicationStatus;
 use App\blogic\_Shared\Enums\WorkMode;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
+use Illuminate\Validation\Rule;
 
 /**
  * Validazione per l'aggiornamento di una candidatura esistente.
@@ -29,7 +30,12 @@ class UpdateApplicationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'company_id'   => 'nullable|integer|exists:companies,id',
+            'company_id' => [
+                'nullable',
+                'integer',
+                Rule::exists('companies', 'id')
+                    ->where('creator_id', $this->user()?->user?->id),
+            ],
             'company_name' => 'nullable|string|max:255',
             'title' => 'sometimes|string|max:255',
             'work_mode' => ['sometimes', 'nullable', new Enum(WorkMode::class)],
@@ -52,7 +58,7 @@ class UpdateApplicationRequest extends FormRequest
     {
         return [
             'salary_max.gte' => 'The maximum salary must be greater than or equal to the minimum.',
-            'company_id.exists' => 'The selected company does not exist.',
+            'company_id.exists' => 'The selected company does not exist or does not belong to you.',
         ];
     }
 }

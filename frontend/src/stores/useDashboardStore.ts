@@ -22,10 +22,20 @@ export const useDashboardStore = defineStore("dashboard", () => {
     }
   }
 
+  /**
+   * Azzera lo stato dello store (logout / cambio utente).
+   */
+  function reset() {
+    stats.value = null;
+    dateRange.value = "month";
+    loading.value = false;
+  }
+
   return {
     stats,
     loading,
     dateRange,
     fetchStats,
+    reset,
   };
 });

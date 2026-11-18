@@ -28,7 +28,10 @@ class CompanyShowResource extends JsonResource
             'linkedin' => $this->linkedin,
             'description' => $this->description,
             'logo_path' => $this->logo_path,
-            'notes' => $this->notes,
+            'notes' => $this->when(
+                $request->user()?->user?->id === $this->creator_id,
+                $this->notes,
+            ),
             'creator_id' => $this->creator_id,
             'contacts' => ContactIndexResource::collection($this->whenLoaded('contacts')),
             'applications_count' => $this->whenCounted('applications'),

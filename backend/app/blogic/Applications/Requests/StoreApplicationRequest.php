@@ -8,6 +8,7 @@ use App\blogic\_Shared\Enums\ApplicationStatus;
 use App\blogic\_Shared\Enums\WorkMode;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
+use Illuminate\Validation\Rule;
 
 /**
  * Validazione per la creazione di una nuova candidatura.
@@ -28,7 +29,12 @@ class StoreApplicationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'company_id'   => 'nullable|integer|exists:companies,id',
+            'company_id' => [
+                'nullable',
+                'integer',
+                Rule::exists('companies', 'id')
+                    ->where('creator_id', $this->user()?->user?->id),
+            ],
             'company_name' => 'nullable|string|max:255',
             'title' => 'required|string|max:255',
             'work_mode' => ['nullable', new Enum(WorkMode::class)],
@@ -52,7 +58,7 @@ class StoreApplicationRequest extends FormRequest
         return [
             'title.required' => 'The position title is required.',
             'salary_max.gte' => 'The maximum salary must be greater than or equal to the minimum.',
-            'company_id.exists' => 'The selected company does not exist.',
+            'company_id.exists' => 'The selected company does not exist or does not belong to you.',
         ];
     }
 }

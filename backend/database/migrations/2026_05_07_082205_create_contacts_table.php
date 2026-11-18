@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('creator_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('company_id')->constrained()->onDelete('cascade');
             $table->string('name')->nullable();
             $table->string('role')->nullable();
@@ -24,6 +25,7 @@ return new class extends Migration
             $table->boolean('is_principal')->default(false);
             $table->text('notes')->nullable();
             $table->timestamps();
+            $table->index('company_id');
         });
     }
 

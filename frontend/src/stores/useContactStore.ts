@@ -25,6 +25,7 @@ export const useContactStore = defineStore("contact", () => {
    */
   async function fetchContacts(companyId: number) {
     loading.value = true;
+    contacts.value = [];
     try {
       const res = await contactsApi.getContacts(companyId);
       contacts.value = res.data.map((c) => toCamelCase<Contact>(c));
@@ -85,6 +86,14 @@ export const useContactStore = defineStore("contact", () => {
     }
   }
 
+  /**
+   * Azzera lo stato dello store (logout / cambio utente).
+   */
+  function reset() {
+    contacts.value = [];
+    loading.value = false;
+  }
+
   return {
     contacts,
     loading,
@@ -92,5 +101,6 @@ export const useContactStore = defineStore("contact", () => {
     createContact,
     updateContact,
     deleteContact,
+    reset,
   };
 });

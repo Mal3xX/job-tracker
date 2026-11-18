@@ -11,7 +11,6 @@ use App\blogic\_Shared\Enums\WorkMode;
 use App\blogic\Accounts\Models\Account;
 use App\blogic\Applications\Models\Application;
 use App\blogic\Companies\Models\Company;
-use App\blogic\Companies\Models\Contact;
 use App\blogic\Users\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -58,9 +57,8 @@ class DemoDataSeeder extends Seeder
         $slugService = new SlugService();
         $companies = [];
         foreach ($companiesData as $data) {
-            $companies[] = Company::create([
+            $company = new Company([
                 'name' => $data['name'],
-                'slug' => $slugService->generateUnique($data['name'], 'companies', 'slug'),
                 'sector' => $data['sector'],
                 'size' => $data['size']->value,
                 'website' => $data['website'],
@@ -68,8 +66,12 @@ class DemoDataSeeder extends Seeder
                 'description' => fake()->paragraph(3),
                 'logo_path' => null,
                 'notes' => null,
-                'creator_id' => $adminUser->id,
             ]);
+            $company->slug = $slugService->generateUnique($data['name'], 'companies', 'slug');
+            $company->creator_id = $adminUser->id;
+            $company->save();
+
+            $companies[] = $company;
         }
 
         // ─── CONTATTI ────
@@ -77,9 +79,7 @@ class DemoDataSeeder extends Seeder
         foreach ($companies as $company) {
             $numContacts = random_int(1, 3);
             for ($i = 0; $i < $numContacts; $i++) {
-                Contact::create([
-                    'company_id' => $company->id,
-                    'creator_id' => $adminUser->id,
+                $contact = $company->contacts()->make([
                     'name' => fake()->name(),
                     'role' => $contactRoles[array_rand($contactRoles)],
                     'email' => fake()->safeEmail(),
@@ -88,6 +88,8 @@ class DemoDataSeeder extends Seeder
                     'is_principal' => $i === 0,
                     'notes' => $i === 0 ? 'Contatto principale' : null,
                 ]);
+                $contact->creator_id = $company->creator_id;
+                $contact->save();
             }
         }
 
@@ -171,10 +173,10 @@ class DemoDataSeeder extends Seeder
                 'salary_max' => $salaryMax,
                 'description' => fake()->paragraph(random_int(2, 5)),
                 'notes' => fake()->optional(0.3)->paragraph(),
-                'created_at' => $createdAt,
-                'updated_at' => $createdAt,
             ]);
             $application->user_id = $adminUser->id;
+            $application->created_at = $createdAt;
+            $application->updated_at = $createdAt;
             $application->save();
         }
 
@@ -202,10 +204,10 @@ class DemoDataSeeder extends Seeder
                 'salary_min' => fake()->numberBetween(28000, 40000),
                 'salary_max' => fake()->numberBetween(42000, 60000),
                 'description' => fake()->paragraph(random_int(2, 4)),
-                'created_at' => $createdAt,
-                'updated_at' => $createdAt,
             ]);
             $application->user_id = $adminUser->id;
+            $application->created_at = $createdAt;
+            $application->updated_at = $createdAt;
             $application->save();
         }
     }

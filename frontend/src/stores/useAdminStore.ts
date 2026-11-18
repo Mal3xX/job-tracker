@@ -68,6 +68,16 @@ export const useAdminStore = defineStore("admin", () => {
     }
   }
 
+  /**
+   * Azzera lo stato dello store (logout / cambio utente).
+   */
+  function reset() {
+    users.value = [];
+    currentUser.value = null;
+    pagination.value = null;
+    loading.value = false;
+  }
+
   return {
     users,
     currentUser,
@@ -76,5 +86,6 @@ export const useAdminStore = defineStore("admin", () => {
     fetchUsers,
     fetchUser,
     updateRole,
+    reset,
   };
 });

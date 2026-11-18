@@ -44,9 +44,9 @@ function goToSettings() {
   router.push({ name: "settings" });
 }
 
-function handleLogout() {
+async function handleLogout() {
   showMenu.value = false;
-  authStore.logout();
+  await authStore.logout();
   showSuccess(t("notifications.loggedOut"));
   router.push({ name: "login" });
 }

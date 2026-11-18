@@ -39,7 +39,7 @@ export interface Application {
     salaryMin: number | null;
     salaryMax: number | null;
     description?: string | null;
-    notes: string | null;
+    notes?: string | null;
     createdAt: string;
     updatedAt: string;
 }

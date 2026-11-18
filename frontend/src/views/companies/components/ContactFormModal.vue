@@ -16,7 +16,6 @@ const { t } = useI18n();
 const { showSuccess, showError } = useToast();
 const contactStore = useContactStore();
 const authStore = useAuthStore();
-const isAdmin = computed(() => authStore.isAdmin);
 
 interface Props {
   open: boolean;
@@ -27,6 +26,13 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   contact: null,
 });
+
+const canEdit = computed(
+  () =>
+    !props.contact ||
+    authStore.isAdmin ||
+    props.contact.creatorId === authStore.user?.id,
+);
 
 const emit = defineEmits<{
   close: [];
@@ -72,7 +78,7 @@ function onClose() {
  * Riceve i dati validati dal form, chiama l'API e notifica il parent
  */
 async function onFormSubmit(data: ContactCreate) {
-  if (props.contact && !isAdmin.value) {
+  if (!canEdit.value) {
     showError(t("common.unauthorized"));
     return;
   }
@@ -100,7 +106,7 @@ async function onFormSubmit(data: ContactCreate) {
   <AppModal :open="open" :title="title()" max-width="lg" @close="onClose">
     <ContactForm
       :initial-data="initialData"
-      :disabled="saving || (!!props.contact && !isAdmin)"
+      :disabled="saving || !canEdit"
       @submit="onFormSubmit"
       @cancel="onClose"
     />

@@ -138,6 +138,19 @@ export const useApplicationStore = defineStore("application", () => {
     }
   }
 
+  /**
+   * Azzera lo stato dello store (logout / cambio utente).
+   */
+  function reset() {
+    applications.value = [];
+    currentApplication.value = null;
+    filters.value = {};
+    pagination.value = null;
+    platformNames.value = [];
+    platformsLoaded.value = false;
+    loading.value = false;
+  }
+
   return {
     applications,
     currentApplication,
@@ -153,5 +166,6 @@ export const useApplicationStore = defineStore("application", () => {
     updateApplication,
     deleteApplication,
     fetchPlatformNames,
+    reset,
   };
 });

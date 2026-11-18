@@ -87,7 +87,9 @@ function onEdit() {
 async function onDelete() {
   const confirmed = await confirmDialog({
     title: t("common.confirmDeleteTitle"),
-    message: t("common.confirmDelete", { name: companyStore.currentCompany?.name }),
+    message: t("common.confirmDelete", {
+      name: companyStore.currentCompany?.name,
+    }),
     type: "danger",
     confirmText: t("common.delete"),
     cancelText: t("common.cancel"),
@@ -139,7 +141,6 @@ function onBack() {
 function onCompanySaved() {
   companyStore.fetchCompany(companyId);
 }
-
 
 /**
  * Apre la modale per creare un nuovo contatto
@@ -194,7 +195,10 @@ function onContactSaved() {
             {{ companyStore.currentCompany.name }}
           </h1>
         </div>
-        <div v-if="canManage(companyStore.currentCompany)" class="flex items-center gap-2">
+        <div
+          v-if="canManage(companyStore.currentCompany)"
+          class="flex items-center gap-2"
+        >
           <AppButton variant="secondary" @click="onEdit">{{
             t("common.edit")
           }}</AppButton>
@@ -263,7 +267,10 @@ function onContactSaved() {
               }}
             </p>
           </div>
-          <div class="md:col-span-2">
+          <div
+            v-if="companyStore.currentCompany.notes !== undefined"
+            class="md:col-span-2"
+          >
             <h3 class="text-sm font-medium text-gray-500">
               {{ t("companies.fields.notes") }}
             </h3>

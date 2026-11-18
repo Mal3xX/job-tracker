@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\blogic\Companies\Services;
 
-use App\blogic\Accounts\Models\Account;
 use App\blogic\Companies\Models\Company;
 use App\blogic\Companies\Models\Contact;
 use Illuminate\Database\Eloquent\Collection;
@@ -28,15 +27,16 @@ class ContactService
 
     /**
      * Crea un nuovo contatto per un'azienda.
+     * Il contatto appartiene sempre al proprietario dell'azienda.
      *
      * @param Company $company
      * @param array $data
      * @return Contact
      */
-    public function store(Company $company, array $data, Account $account): Contact
+    public function store(Company $company, array $data): Contact
     {
-        $contact = $company->contacts()->create($data);
-        $contact->creator_id = $account->user?->id;
+        $contact = $company->contacts()->make($data);
+        $contact->creator_id = $company->creator_id;
         $contact->save();
 
         return $contact;

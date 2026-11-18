@@ -60,7 +60,7 @@ The application includes authentication, company and contact management, interac
 ## Companies
 
 - Company management
-- Shared companies across multiple accounts
+- Private companies per user
 - Detailed company information
 
 ## Contacts

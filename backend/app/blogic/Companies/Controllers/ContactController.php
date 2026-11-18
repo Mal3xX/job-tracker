@@ -33,7 +33,7 @@ class ContactController extends Controller
      */
     public function index(Company $company): JsonResponse
     {
-        $this->authorize('viewAny', Contact::class);
+        $this->authorize('view', $company);
         $contacts = $this->contactService->getByCompany($company);
         return response()->json([
             'data' => ContactIndexResource::collection($contacts),
@@ -49,8 +49,9 @@ class ContactController extends Controller
      */
     public function store(StoreContactRequest $request, Company $company): JsonResponse
     {
+        $this->authorize('update', $company);
         $this->authorize('create', Contact::class);
-        $contact = $this->contactService->store($company, $request->validated(), $request->user());
+        $contact = $this->contactService->store($company, $request->validated());
         return response()->json([
             'data' => new ContactShowResource($contact),
             'message' => 'Contatto creato con successo.',

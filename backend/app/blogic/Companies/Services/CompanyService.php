@@ -24,40 +24,65 @@ class CompanyService
     ) {}
 
     /**
-     * Recupera tutte le aziende con paginazione.
+     * Recupera le aziende visibili all'account con paginazione.
+     * Gli admin vedono tutte le aziende, gli altri solo le proprie.
      *
+     * @param Account $account
      * @param int $perPage
      * @return LengthAwarePaginator
      */
-    public function getAll(int $perPage = 15): LengthAwarePaginator
+    public function getAll(Account $account, int $perPage = 15): LengthAwarePaginator
     {
-        return Company::with('contacts')
-            ->orderBy('created_at', 'desc')
-            ->paginate($perPage);
+        $query = Company::orderBy('created_at', 'desc');
+
+        if ($account->role !== 'admin') {
+            $query->where('creator_id', $account->user?->id);
+        }
+
+        return $query->paginate($perPage);
     }
 
     /**
-     * Restituisce ID e nome di tutte le aziende, ordinate alfabeticamente.
+     * Restituisce ID e nome delle aziende visibili all'account.
+     *
+     * @param Account $account
+     * @return Collection
      */
-    public function getNames(): Collection
+    public function getNames(Account $account): Collection
     {
-        return Company::select('id', 'name')
-            ->orderBy('name', 'asc')
-            ->get();
+        $query = Company::select('id', 'name')
+            ->orderBy('name', 'asc');
+
+        if ($account->role !== 'admin') {
+            $query->where('creator_id', $account->user?->id);
+        }
+
+        return $query->get();
     }
 
     /**
-     * Recupera una singola azienda per ID.
-     * Lancia eccezione se non trovata.
+     * Recupera una singola azienda visibile all'account.
+     * Gli admin possono accedere a qualsiasi azienda, gli altri solo alle proprie.
      *
      * @param int $id
+     * @param Account $account
      * @return Company
      */
-    public function getById(int $id): Company
+    public function getById(int $id, Account $account): Company
     {
-        return Company::with('contacts')
-            ->withCount('applications')
-            ->findOrFail($id);
+        $userId = $account->user?->id;
+        $query = Company::with('contacts');
+
+        if ($account->role === 'admin') {
+            $query->withCount('applications');
+        } else {
+            $query->withCount([
+                'applications' => fn($query) => $query->where('user_id', $userId),
+            ]);
+            $query->where('creator_id', $userId);
+        }
+
+        return $query->findOrFail($id);
     }
 
     /**
@@ -69,26 +94,25 @@ class CompanyService
      */
     public function store(array $data, Account $account): Company
     {
-        return DB::transaction(function () use ($data, $account) {
+        $creatorId = $account->user?->id;
+
+        if ($creatorId === null) {
+            throw new \RuntimeException('Profilo utente non trovato per l\'account.');
+        }
+
+        return DB::transaction(function () use ($data, $creatorId) {
             $company = new Company($data);
-            $company->creator_id = $account->user?->id;
+            $company->creator_id = $creatorId;
             $company->slug = $this->slugService->generateUnique($data['name'], 'companies', 'slug');
             $company->save();
 
-            $affectedUserIds = Application::where('user_id', $account->user?->id)
-                ->where('company_name', $company->name)
-                ->whereNull('company_id')
-                ->pluck('user_id')
-                ->unique()
-                ->all();
-
-            Application::where('user_id', $account->user?->id)
+            $affected = Application::where('user_id', $creatorId)
                 ->where('company_name', $company->name)
                 ->whereNull('company_id')
                 ->update(['company_id' => $company->id]);
 
-            foreach ($affectedUserIds as $userId) {
-                DashboardService::clearStatsCache((int) $userId);
+            if ($affected > 0) {
+                DashboardService::clearStatsCache((int) $creatorId);
             }
 
             return $company->fresh(['contacts']);

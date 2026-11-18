@@ -9,8 +9,8 @@ use App\blogic\Companies\Models\Company;
 
 /**
  * Policy per autorizzare azioni sulle aziende.
- * Tutti gli utenti autenticati possono visualizzare e creare aziende;
- * solo gli admin possono aggiornarle ed eliminarle.
+ * Gli utenti possono visualizzare solo le proprie aziende;
+ * gli admin bypassano i controlli tramite before().
  */
 class CompanyPolicy
 {
@@ -32,10 +32,11 @@ class CompanyPolicy
 
     /**
      * Determina se l'azienda specificata può essere visualizzata dall'account.
+     * Solo il creatore può visualizzarla; gli admin sono gestiti da before().
      */
     public function view(Account $account, Company $company): bool
     {
-        return true;
+        return $account->user?->id === $company->creator_id;
     }
 
     /**

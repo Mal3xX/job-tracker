@@ -11,6 +11,8 @@ use App\blogic\Dashboard\Services\DashboardService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Validation\ValidationException;
+use App\blogic\Companies\Models\Company;
 use RuntimeException;
 
 /**
@@ -25,6 +27,30 @@ class ApplicationService
     private function isAdmin(Account $account): bool
     {
         return $account->role === 'admin';
+    }
+
+    /**
+     * Verifica che l'azienda indicata appartenga al proprietario della candidatura.
+     *
+     * @param int|string|null $companyId
+     * @param int|null $userId
+     * @throws ValidationException
+     */
+    private function assertCompanyOwnership(int|string|null $companyId, ?int $userId): void
+    {
+        if ($companyId === null) {
+            return;
+        }
+
+        $ownsCompany = Company::whereKey((int) $companyId)
+            ->where('creator_id', $userId)
+            ->exists();
+
+        if (!$ownsCompany) {
+            throw ValidationException::withMessages([
+                'company_id' => 'The selected company does not exist or does not belong to you.',
+            ]);
+        }
     }
 
     /**
@@ -85,6 +111,8 @@ class ApplicationService
             throw new RuntimeException('User profile not found for account.');
         }
 
+        $this->assertCompanyOwnership($data['company_id'] ?? null, $userId);
+
         $application = new Application($data);
         $application->user_id = $userId;
         $application->status_changed_at = now();
@@ -105,6 +133,8 @@ class ApplicationService
      */
     public function update(Application $application, array $data): Application
     {
+        $this->assertCompanyOwnership($data['company_id'] ?? null, $application->user_id);
+
         if (isset($data['status']) && $data['status'] !== $application->status) {
             $data['status_changed_at'] = now();
         }

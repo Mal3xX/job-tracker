@@ -34,7 +34,10 @@ class ApplicationShowResource extends JsonResource
             'salary_min' => $this->salary_min,
             'salary_max' => $this->salary_max,
             'description' => $this->description,
-            'notes' => $this->notes,
+            'notes' => $this->when(
+                $request->user()?->user?->id === $this->user_id,
+                $this->notes,
+            ),
             'company' => $this->whenLoaded('company') && $this->company ? [
                 'id' => $this->company->id,
                 'name' => $this->company->name,

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\blogic\Companies\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\blogic\_Shared\Traits\ResolvesPerPage;
 use App\blogic\Companies\Models\Company;
 use App\blogic\Companies\Requests\StoreCompanyRequest;
 use App\blogic\Companies\Requests\UpdateCompanyRequest;
@@ -21,6 +22,8 @@ use Illuminate\Http\Response;
  */
 class CompanyController extends Controller
 {
+    use ResolvesPerPage;
+
     public function __construct(
         private CompanyService $companyService
     ) {}
@@ -34,7 +37,10 @@ class CompanyController extends Controller
     public function index(Request $request): JsonResponse
     {
         $this->authorize('viewAny', Company::class);
-        $companies = $this->companyService->getAll($request->user(), $request->integer('per_page', 15));
+        $companies = $this->companyService->getAll(
+            $request->user(),
+            $this->resolvePerPage($request)
+        );
         return response()->json([
             'data' => CompanyIndexResource::collection($companies),
             'meta' => [

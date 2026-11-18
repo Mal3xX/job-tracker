@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\blogic\Applications\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\blogic\_Shared\Traits\ResolvesPerPage;
 use App\blogic\Applications\Models\Application;
 use App\blogic\Applications\Requests\StoreApplicationRequest;
 use App\blogic\Applications\Requests\UpdateApplicationRequest;
@@ -23,6 +24,8 @@ use Illuminate\Http\Response;
  */
 class ApplicationController extends Controller
 {
+    use ResolvesPerPage;
+
     public function __construct(
         private ApplicationService $applicationService
     ) {}
@@ -38,7 +41,7 @@ class ApplicationController extends Controller
         $this->authorize('viewAny', Application::class);
         $applications = $this->applicationService->getAll(
             $request->user(),
-            $request->integer('per_page', 15),
+            $this->resolvePerPage($request),
             $request->integer('company_id')
         );
         return response()->json([

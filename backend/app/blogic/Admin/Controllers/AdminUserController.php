@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\blogic\Admin\Controllers;
 
+use App\blogic\_Shared\Traits\ResolvesPerPage;
 use App\blogic\Accounts\Models\Account;
 use App\blogic\Admin\Services\AdminUserService;
 use App\blogic\Admin\Resources\AdminUserIndexResource;
@@ -18,6 +19,8 @@ use Illuminate\Http\Request;
  */
 class AdminUserController extends Controller
 {
+    use ResolvesPerPage;
+
     public function __construct(
         private AdminUserService $adminUserService
     ) {}
@@ -32,7 +35,7 @@ class AdminUserController extends Controller
     public function index(Request $request): JsonResponse
     {
         $this->authorize('viewAny', Account::class);
-        $accounts = $this->adminUserService->getAll($request->integer('per_page', 15));
+        $accounts = $this->adminUserService->getAll($this->resolvePerPage($request));
         return response()->json([
             'data' => AdminUserIndexResource::collection($accounts),
             'meta' => [

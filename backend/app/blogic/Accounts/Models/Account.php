@@ -6,7 +6,6 @@ namespace App\blogic\Accounts\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Sanctum\HasApiTokens;
 use App\blogic\Users\Models\User;
 
 /**
@@ -15,7 +14,6 @@ use App\blogic\Users\Models\User;
  */
 class Account extends Authenticatable
 {
-    use HasApiTokens;
 
     /**
      * Campi modificabili in massa.

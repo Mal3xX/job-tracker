@@ -31,7 +31,6 @@ class AccountService
         }
 
         $account = Auth::guard('web')->user();
-        $token = $account->createToken('spa')->plainTextToken;
 
         /**
          * Registra l'accesso nello storico login.
@@ -56,7 +55,6 @@ class AccountService
                 'first_name' => $account->user?->first_name,
                 'last_name' => $account->user?->last_name,
             ],
-            'token' => $token,
         ];
     }
 

@@ -24,7 +24,7 @@ class AccountController extends Controller
     ) {}
 
     /**
-     * Autentica l'utente e restituisce il token API.
+     * Autentica l'utente e restituisce account e profilo.
      *
      * @param LoginRequest $request
      * @return JsonResponse
@@ -57,7 +57,7 @@ class AccountController extends Controller
     }
 
     /**
-     * Revoca il token API dell'utente corrente.
+     * Esegue il logout della sessione dell'utente corrente.
      *
      * @param Request $request
      * @return JsonResponse

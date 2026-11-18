@@ -6,6 +6,7 @@ namespace App\blogic\Accounts\Services;
 
 use App\blogic\Accounts\Models\Account;
 use App\blogic\Users\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -99,13 +100,16 @@ class AccountService
     }
 
     /**
-     * Esegue il logout della sessione web corrente.
+     * Esegue il logout, invalida la sessione e rigenera il token CSRF.
      *
-     * @param Account $account
+     * @param Request $request
      */
-    public function logout(Account $account): void
+    public function logout(Request $request): void
     {
         Auth::guard('web')->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
     }
 
     /**

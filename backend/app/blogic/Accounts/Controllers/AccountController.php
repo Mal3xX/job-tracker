@@ -64,7 +64,7 @@ class AccountController extends Controller
      */
     public function logout(Request $request): JsonResponse
     {
-        $this->accountService->logout($request->user());
+        $this->accountService->logout($request);
         return response()->json(['message' => 'Logged out']);
     }
 

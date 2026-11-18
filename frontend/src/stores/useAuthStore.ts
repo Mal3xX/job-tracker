@@ -142,8 +142,13 @@ export const useAuthStore = defineStore("auth", () => {
    * Effettua il logout: pulisce utente ed errori
    */
   async function logout() {
-    authApi.logout().catch(() => {});
-    await clearAuth();
+    try {
+      await authApi.logout();
+    } catch {
+      // Il logout locale avviene comunque
+    } finally {
+      await clearAuth();
+    }
   }
 
   return {
